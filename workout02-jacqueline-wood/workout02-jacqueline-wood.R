@@ -90,8 +90,7 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$timelines <- renderPlot({
-     
+  modalities <- reactive({ 
      future_value <- function(amount, rate, years) {
        return(amount * ((1 + rate)^years))
      }
@@ -116,7 +115,13 @@ server <- function(input, output) {
      
      modalities <- data.frame("year" = 0:input$years, "no_contrib" = no_contrib, "fixed_contrib" = fixed_contrib, "growing_contrib" = growing_contrib)
      
-     melted <- melt(modalities, id.vars='year')
+     modalities
+     })
+  
+   output$timelines <- renderPlot({
+     
+     
+     melted <- melt(modalities(), id.vars='year')
      names(melted)[2] <- "variable"
      names(melted)[3] <- "value"
      
@@ -128,7 +133,7 @@ server <- function(input, output) {
 
      })
    
-   output$balances <- renderPrint(modalities)
+   output$balances <- renderPrint(modalities())
    
 }
 
