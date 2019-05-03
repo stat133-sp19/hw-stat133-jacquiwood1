@@ -1,0 +1,76 @@
+---
+title: "Getting Started with binomial"
+author: "Jacqueline Wood"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(binomial)
+```
+
+
+## Binomial
+
+The package `"binomial"` is a package designed to model binomial distributions, to calculate summary statistics, and to visualize the distributions.
+
+
+## Creating a `binvar`
+
+In order to create a `binvar`, or a binomial random variable object:
+```{r}
+trials = 10
+prob = 0.3
+
+mybinvar <- bin_variable(trials,prob)
+mybinvar
+```
+
+`bin_variable()` takes in two inputs: trials (number of trials) and prob (probability of success)
+
+## Summary statistics
+
+The `summary()` function gives you a nice output of summary statistics:
+```{r}
+summary(mybinvar)
+```
+
+## Plot of binomial distribution
+
+You can plot a binomial distribution using this package too.
+
+First, you create an object of the `bindis` (binomial distribution) class:
+```{r}
+mybindis <- bin_distribution(trials,prob)
+mybindis
+```
+
+As shown above, `bin_distribution()` function returns a data frame with the probability distribution.
+
+You can use the function `plot()` to create a barplot that displays the probability histogram of a binomial distribution object `bindis`.
+```{r}
+plot(mybindis)
+```
+
+
+## Plot of a Binomial Cumulative Distribution
+
+You can plot a binomial cumulative distribution using this package as well.
+
+First, you create an object of the `bincum` (binomial cumulative distribution) class:
+```{r}
+mybincum <- bin_cumulative(trials,prob)
+mybincum
+```
+
+The `bin_cumulative()` function returns a data frame with the cumulative probability distribution.
+
+You can use the function `plot()` to create a line graph of the cumulative distribution in an object `bincum`.
+```{r}
+plot(mybincum)
+```
+
